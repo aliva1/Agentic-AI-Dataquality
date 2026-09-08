@@ -7,7 +7,7 @@ name = "dq-agent"
 version = "0.1.0"
 description = "A pluggable, LLM-assisted data quality agent: scans metadata/lineage, profiles data, manages a business-knowledge + rule repository backed by RAG, proposes and adaptively tunes DQ thresholds, and runs the same check orchestration over batch or streaming sources."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [{ name = "Aliva Dash" }]
 

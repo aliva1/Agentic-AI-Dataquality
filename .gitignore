@@ -16,3 +16,4 @@ data/quarantine/
 .env
 .coverage
 htmlcov/
+.DS_Store
