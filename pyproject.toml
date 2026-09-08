@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dq-agent"
+version = "0.1.0"
+description = "A pluggable, LLM-assisted data quality agent: scans metadata/lineage, profiles data, manages a business-knowledge + rule repository backed by RAG, proposes and adaptively tunes DQ thresholds, and runs the same check orchestration over batch or streaming sources."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Aliva Dash" }]
+
+[project.scripts]
+dq-agent = "dq_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

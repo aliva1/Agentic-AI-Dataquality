@@ -1,0 +1,235 @@
+No ANTHROPIC_API_KEY set — using MockLLMClient (deterministic, offline).
+
+==============================================================================
+STEP 1: Teach the agent about these tables (business/domain knowledge -> RAG)
+==============================================================================
+  + knowledge doc for chinook.Customer: 'Email is required'
+  + knowledge doc for chinook.InvoiceLine: 'Referential integrity to Track'
+  + knowledge doc for chinook.Track: 'Pricing'
+
+==============================================================================
+STEP 2: Scan metadata + lineage + profile
+==============================================================================
+
+chinook.Customer (~59 rows)
+    CustomerId       INTEGER    null_rate= 0.00%  distinct_rate=100.00%  pattern=integer_id
+    FirstName        NVARCHAR(40) null_rate= 0.00%  distinct_rate=96.61%  pattern=None
+    LastName         NVARCHAR(20) null_rate= 0.00%  distinct_rate=100.00%  pattern=None
+    Company          NVARCHAR(80) null_rate=83.05%  distinct_rate=16.95%  pattern=None
+    Address          NVARCHAR(70) null_rate= 0.00%  distinct_rate=100.00%  pattern=None
+    City             NVARCHAR(40) null_rate= 0.00%  distinct_rate=89.83%  pattern=None
+    State            NVARCHAR(40) null_rate=49.15%  distinct_rate=42.37%  pattern=None
+    Country          NVARCHAR(40) null_rate= 0.00%  distinct_rate=40.68%  pattern=None
+    PostalCode       NVARCHAR(10) null_rate= 6.78%  distinct_rate=93.22%  pattern=None
+    Phone            NVARCHAR(24) null_rate= 1.69%  distinct_rate=98.31%  pattern=None
+    Fax              NVARCHAR(24) null_rate=79.66%  distinct_rate=20.34%  pattern=None
+    Email            NVARCHAR(60) null_rate= 0.00%  distinct_rate=100.00%  pattern=email
+    SupportRepId     INTEGER    null_rate= 0.00%  distinct_rate= 5.08%  pattern=None
+    lineage: (none — SQLite has no lineage catalog; see README for Postgres/Snowflake/Databricks)
+
+chinook.Track (~3503 rows)
+    TrackId          INTEGER    null_rate= 0.00%  distinct_rate=100.00%  pattern=integer_id
+    Name             NVARCHAR(200) null_rate= 0.00%  distinct_rate=92.98%  pattern=None
+    AlbumId          INTEGER    null_rate= 0.00%  distinct_rate= 9.91%  pattern=None
+    MediaTypeId      INTEGER    null_rate= 0.00%  distinct_rate= 0.14%  pattern=None
+    GenreId          INTEGER    null_rate= 0.00%  distinct_rate= 0.71%  pattern=None
+    Composer         NVARCHAR(220) null_rate=27.89%  distinct_rate=24.35%  pattern=None
+    Milliseconds     INTEGER    null_rate= 0.00%  distinct_rate=87.92%  pattern=None
+    Bytes            INTEGER    null_rate= 0.00%  distinct_rate=99.94%  pattern=None
+    UnitPrice        NUMERIC(10, 2) null_rate= 0.00%  distinct_rate= 0.06%  pattern=None
+    lineage: (none — SQLite has no lineage catalog; see README for Postgres/Snowflake/Databricks)
+
+chinook.InvoiceLine (~2240 rows)
+    InvoiceLineId    INTEGER    null_rate= 0.00%  distinct_rate=100.00%  pattern=integer_id
+    InvoiceId        INTEGER    null_rate= 0.00%  distinct_rate=18.39%  pattern=None
+    TrackId          INTEGER    null_rate= 0.00%  distinct_rate=88.57%  pattern=None
+    UnitPrice        NUMERIC(10, 2) null_rate= 0.00%  distinct_rate= 0.09%  pattern=None
+    Quantity         INTEGER    null_rate= 0.00%  distinct_rate= 0.04%  pattern=None
+    lineage: (none — SQLite has no lineage catalog; see README for Postgres/Snowflake/Databricks)
+
+==============================================================================
+STEP 3: Profile-driven + LLM-refined rule proposals -> human approval -> activation
+==============================================================================
+
+Customer: 21 rule(s) proposed
+    [completeness] CustomerId       threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [uniqueness  ] CustomerId       threshold=0.9990   CustomerId looks like a candidate key (all distinct, no nulls).
+    [range       ] CustomerId       threshold=0.0000   Observed range [1.0, 59.0]; flagging values outside it.
+    [pattern     ] CustomerId       threshold=0.9500   CustomerId values match the 'integer_id' pattern in the sample.
+    [completeness] FirstName        threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [completeness] LastName         threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [uniqueness  ] LastName         threshold=0.9990   LastName looks like a candidate key (all distinct, no nulls).
+    [completeness] Company          threshold=0.8505   Observed null rate 83.05%; proposing a max-null-rate threshold of 85.05% with headroom.
+    [completeness] Address          threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [uniqueness  ] Address          threshold=0.9990   Address looks like a candidate key (all distinct, no nulls).
+    [completeness] City             threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [completeness] State            threshold=0.5115   Observed null rate 49.15%; proposing a max-null-rate threshold of 51.15% with headroom.
+    [completeness] Country          threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [completeness] PostalCode       threshold=0.0878   Observed null rate 6.78%; proposing a max-null-rate threshold of 8.78% with headroom.
+    [completeness] Phone            threshold=0.0369   Observed null rate 1.69%; proposing a max-null-rate threshold of 3.69% with headroom.
+    [completeness] Fax              threshold=0.8166   Observed null rate 79.66%; proposing a max-null-rate threshold of 81.66% with headroom.
+    [completeness] Email            threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [uniqueness  ] Email            threshold=0.9990   Email looks like a candidate key (all distinct, no nulls).
+    [pattern     ] Email            threshold=0.9500   Email values match the 'email' pattern in the sample.
+    [completeness] SupportRepId     threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] SupportRepId     threshold=0.0000   Observed range [3.0, 5.0]; flagging values outside it.
+  -> approved and activated 21 rule(s)
+
+Track: 18 rule(s) proposed
+    [completeness] TrackId          threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [uniqueness  ] TrackId          threshold=0.9990   TrackId looks like a candidate key (all distinct, no nulls).
+    [range       ] TrackId          threshold=0.0000   Observed range [1.0, 3503.0]; flagging values outside it.
+    [pattern     ] TrackId          threshold=0.9500   TrackId values match the 'integer_id' pattern in the sample.
+    [completeness] Name             threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [completeness] AlbumId          threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] AlbumId          threshold=0.0000   Observed range [1.0, 347.0]; flagging values outside it.
+    [completeness] MediaTypeId      threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] MediaTypeId      threshold=0.0000   Observed range [1.0, 5.0]; flagging values outside it.
+    [completeness] GenreId          threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] GenreId          threshold=0.0000   Observed range [1.0, 25.0]; flagging values outside it.
+    [completeness] Composer         threshold=0.2989   Observed null rate 27.89%; proposing a max-null-rate threshold of 29.89% with headroom.
+    [completeness] Milliseconds     threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] Milliseconds     threshold=0.0000   Observed range [1071.0, 5286953.0]; flagging values outside it.
+    [completeness] Bytes            threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] Bytes            threshold=0.0000   Observed range [38747.0, 1059546140.0]; flagging values outside it.
+    [completeness] UnitPrice        threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] UnitPrice        threshold=0.0000   Observed range [0.99, 1.99]; flagging values outside it.
+  -> approved and activated 18 rule(s)
+
+InvoiceLine: 11 rule(s) proposed
+    [completeness] InvoiceLineId    threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [uniqueness  ] InvoiceLineId    threshold=0.9990   InvoiceLineId looks like a candidate key (all distinct, no nulls).
+    [range       ] InvoiceLineId    threshold=0.0000   Observed range [1.0, 2240.0]; flagging values outside it.
+    [pattern     ] InvoiceLineId    threshold=0.9500   InvoiceLineId values match the 'integer_id' pattern in the sample.
+    [completeness] InvoiceId        threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] InvoiceId        threshold=0.0000   Observed range [1.0, 412.0]; flagging values outside it.
+    [completeness] TrackId          threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] TrackId          threshold=0.0000   Observed range [1.0, 3500.0]; flagging values outside it.
+    [completeness] UnitPrice        threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+    [range       ] UnitPrice        threshold=0.0000   Observed range [0.99, 1.99]; flagging values outside it.
+    [completeness] Quantity         threshold=0.0200   Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.
+  -> approved and activated 11 rule(s)
+
+==============================================================================
+STEP 4: Add a hand-authored rule the statistical profiler can't infer on its own
+==============================================================================
+  + rule_9795622451cc: InvoiceLine.TrackId must exist in Track.TrackId (CRITICAL)
+
+==============================================================================
+STEP 5: Run batch checks
+==============================================================================
+
+Customer: 59 rows checked, batch_id=batch_1788865394307
+    PASS  CustomerId       completeness value=0.0 threshold=0.02
+    PASS  CustomerId       uniqueness   value=1.0 threshold=0.999
+    PASS  CustomerId       range        value=0.0 threshold=0.0
+    PASS  CustomerId       pattern      value=1.0 threshold=0.95
+    PASS  FirstName        completeness value=0.0 threshold=0.02
+    PASS  LastName         completeness value=0.0 threshold=0.02
+    PASS  LastName         uniqueness   value=1.0 threshold=0.999
+    PASS  Company          completeness value=0.8305084745762712 threshold=0.8505
+    PASS  Address          completeness value=0.0 threshold=0.02
+    PASS  Address          uniqueness   value=1.0 threshold=0.999
+    PASS  City             completeness value=0.0 threshold=0.02
+    PASS  State            completeness value=0.4915254237288136 threshold=0.5115
+    PASS  Country          completeness value=0.0 threshold=0.02
+    PASS  PostalCode       completeness value=0.06779661016949153 threshold=0.0878
+    PASS  Phone            completeness value=0.01694915254237288 threshold=0.0369
+    PASS  Fax              completeness value=0.7966101694915254 threshold=0.8166
+    PASS  Email            completeness value=0.0 threshold=0.02
+    PASS  Email            uniqueness   value=1.0 threshold=0.999
+    PASS  Email            pattern      value=1.0 threshold=0.95
+    PASS  SupportRepId     completeness value=0.0 threshold=0.02
+    PASS  SupportRepId     range        value=0.0 threshold=0.0
+  GATE DECISION: pass — clean
+
+Track: 3503 rows checked, batch_id=batch_1788865394382
+    PASS  TrackId          completeness value=0.0 threshold=0.02
+    PASS  TrackId          uniqueness   value=1.0 threshold=0.999
+    PASS  TrackId          range        value=0.0 threshold=0.0
+    PASS  TrackId          pattern      value=1.0 threshold=0.95
+    PASS  Name             completeness value=0.0 threshold=0.02
+    PASS  AlbumId          completeness value=0.0 threshold=0.02
+    PASS  AlbumId          range        value=0.0 threshold=0.0
+    PASS  MediaTypeId      completeness value=0.0 threshold=0.02
+    PASS  MediaTypeId      range        value=0.0 threshold=0.0
+    PASS  GenreId          completeness value=0.0 threshold=0.02
+    PASS  GenreId          range        value=0.0 threshold=0.0
+    PASS  Composer         completeness value=0.2789037967456466 threshold=0.2989
+    PASS  Milliseconds     completeness value=0.0 threshold=0.02
+    PASS  Milliseconds     range        value=0.0 threshold=0.0
+    PASS  Bytes            completeness value=0.0 threshold=0.02
+    PASS  Bytes            range        value=0.0 threshold=0.0
+    PASS  UnitPrice        completeness value=0.0 threshold=0.02
+    PASS  UnitPrice        range        value=0.0 threshold=0.0
+  GATE DECISION: pass — clean
+
+InvoiceLine: 2240 rows checked, batch_id=batch_1788865394409
+    PASS  InvoiceLineId    completeness value=0.0 threshold=0.02
+    PASS  InvoiceLineId    uniqueness   value=1.0 threshold=0.999
+    PASS  InvoiceLineId    range        value=0.0 threshold=0.0
+    PASS  InvoiceLineId    pattern      value=1.0 threshold=0.95
+    PASS  InvoiceId        completeness value=0.0 threshold=0.02
+    PASS  InvoiceId        range        value=0.0 threshold=0.0
+    PASS  TrackId          completeness value=0.0 threshold=0.02
+    PASS  TrackId          range        value=0.0 threshold=0.0
+    PASS  UnitPrice        completeness value=0.0 threshold=0.02
+    PASS  UnitPrice        range        value=0.0 threshold=0.0
+    PASS  Quantity         completeness value=0.0 threshold=0.02
+    PASS  TrackId          referential  value=0.0 threshold=0.0
+  GATE DECISION: pass — clean
+
+==============================================================================
+STEP 6: Adaptive thresholds
+==============================================================================
+  6a) Gentle organic drift — null rate creeps up a little each run, staying
+      inside PASS/WARN territory the whole time.
+      Starting threshold for Customer.Email completeness: 0.0200
+      run 1: null_rate=1.80% status=pass 
+      run 2: null_rate=1.90% status=pass 
+      run 3: null_rate=2.00% status=pass 
+      run 4: null_rate=2.10% status=warn 
+      run 5: null_rate=2.20% status=warn   -> auto-adjusted threshold to 0.0233 (status: active)
+      run 6: null_rate=2.25% status=pass   -> auto-adjusted threshold to 0.0242 (status: active)
+      run 7: null_rate=2.30% status=pass   -> auto-adjusted threshold to 0.0249 (status: active)
+
+  6b) Sudden shift (synthetic — simulating a business change, e.g. a new market
+      segment where Email is optional). One-off jumps like this should NOT
+      quietly relax the rule; they should pause it for human re-approval.
+      run 1: null_rate=30.00%
+      run 2: null_rate=32.00%
+      run 3: null_rate=29.00%
+      run 4: null_rate=31.00%
+      run 5: null_rate=30.00%  -> threshold moved to 0.3194, status demoted to approved (needs human re-approval)
+      run 6: null_rate=33.00%  -> threshold moved to 0.3395, status demoted to approved (needs human re-approval)
+
+  Threshold history for rule_5cb32b1d2b0b:
+    0.0200 -> 0.3194  auto=True  reapproval_needed=True  (EWMA-based auto-tune from 5 observations (mean=0.3027, std=0.0083); relative_change=1496.9%)
+    0.3194 -> 0.3395  auto=True  reapproval_needed=False  (EWMA-based auto-tune from 6 observations (mean=0.3109, std=0.0143); relative_change=6.3%)
+
+==============================================================================
+STEP 6c: Force a CRITICAL failure to prove gating + ticketing end-to-end
+==============================================================================
+  referential check: status=fail value=0.6696%
+  GATE DECISION: block — ['CRITICAL FAIL: TrackId referential — 0.67% of values not found in reference set']
+  quarantined rows: 2240
+  TICKET [tkt_da7f2008eb1f] (critical, status=open): Data quality failures on chinook.InvoiceLine
+    Unable to determine a specific root cause without a live model; this is the offline mock response. Recommend investigating the most recent upstream load for this table.
+
+==============================================================================
+STEP 7: Same orchestration, streaming source (proves batch/streaming parity)
+==============================================================================
+  Processed 8 micro-batches, 3503 rows total
+    batch batch_17888653...: 500 rows, statuses={'pass'}, gate=pass
+    batch batch_17888653...: 500 rows, statuses={'fail', 'pass'}, gate=pass_with_warnings
+    batch batch_17888653...: 500 rows, statuses={'pass'}, gate=pass
+    batch batch_17888653...: 500 rows, statuses={'pass'}, gate=pass
+    batch batch_17888653...: 500 rows, statuses={'pass'}, gate=pass
+    batch batch_17888653...: 500 rows, statuses={'pass'}, gate=pass
+    batch batch_17888653...: 500 rows, statuses={'fail', 'pass'}, gate=pass_with_warnings
+    batch batch_17888653...: 3 rows, statuses={'pass'}, gate=pass
+
+==============================================================================
+DONE
+==============================================================================
+State persisted under /home/claude/dq_agent/data/demo_state (rules.db, knowledge.db, tickets.db, quarantine/) — inspect with any SQLite browser.
