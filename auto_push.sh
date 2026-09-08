@@ -6,9 +6,9 @@
 # Usage:
 #   ./auto_push.sh [interval_seconds]
 #
-# Logs to auto_push.log in the same folder. Ctrl+C to stop when run in
-# the foreground; see run_auto_push_background.sh / the LaunchAgent
-# setup for running it unattended.
+# Logs to auto_push.log in the same folder (git-ignored — it is never
+# staged/committed, so the log itself can't trigger new commits).
+# Ctrl+C to stop when run in the foreground.
 
 set -uo pipefail
 cd "$(dirname "$0")"
@@ -29,18 +29,23 @@ log() {
 log "=== auto-push agent started (interval=${INTERVAL}s, repo=$(pwd)) ==="
 
 while true; do
-  if [ -n "$(git status --porcelain)" ]; then
-    git add -A
-    MSG="auto: local changes $(date '+%Y-%m-%d %H:%M:%S')"
-    if git commit -m "$MSG" >> "$LOG_FILE" 2>&1; then
-      log "committed: $MSG"
-      if git push origin "HEAD:${BRANCH_REMOTE}" >> "$LOG_FILE" 2>&1; then
-        log "pushed OK"
+  # Only look at tracked-vs-untracked changes that git itself would ever
+  # commit, ignoring anything git-ignored (like auto_push.log) so the
+  # log file can never be the reason a new cycle sees "changes".
+  if [ -n "$(git status --porcelain --untracked-files=all)" ]; then
+    git add -A -- . ':!auto_push.log'
+    if [ -n "$(git diff --cached --name-only)" ]; then
+      MSG="auto: local changes $(date '+%Y-%m-%d %H:%M:%S')"
+      if git commit -m "$MSG" >> "$LOG_FILE" 2>&1; then
+        log "committed: $MSG"
+        if git push origin "HEAD:${BRANCH_REMOTE}" >> "$LOG_FILE" 2>&1; then
+          log "pushed OK"
+        else
+          log "PUSH FAILED (will retry once new changes trigger another commit, or next time this succeeds — the commit is safe locally either way)"
+        fi
       else
-        log "PUSH FAILED (will retry once new changes trigger another commit, or next time this succeeds — the commit is safe locally either way)"
+        log "commit failed — see above"
       fi
-    else
-      log "nothing to commit (or commit failed) — see above"
     fi
   fi
   sleep "$INTERVAL"
