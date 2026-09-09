@@ -18,3 +18,4 @@ data/quarantine/
 htmlcov/
 .DS_Store
 auto_push.log
+data/demo_state_flatfile/
