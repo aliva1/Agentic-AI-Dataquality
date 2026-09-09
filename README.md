@@ -257,21 +257,27 @@ one streaming micro-batch.
 src/dq_agent/
   models.py                 shared dataclasses (no I/O)
   connectors/                DataSourceConnector + Postgres/Snowflake/Databricks/
-                              SQLite (one class) + flat file + plugin registry
+                              SQLite (one class) + flat file (single file or a
+                              directory of files, DirectoryFlatFileConnector) +
+                              plugin registry
   streaming/                  StreamSource + Kafka + in-memory
   profiling/                  column/table statistical profiling
   knowledge/                  business-knowledge repo, rule repo, RAG vector store
+                              (SQLite-backed, plus JSON-file-backed twins:
+                              rules_repo_json.py, store_json.py)
   llm/                        pluggable LLM client + the reasoner (rules/RCA/tickets)
   checks/                     deterministic rule-evaluation engine
   adaptive/                   EWMA threshold auto-tuning + re-approval guardrail
-  ticketing/                  local SQLite sink + generic webhook sink
+  ticketing/                  local SQLite sink, a JSON-file sink, + generic webhook sink
   gating/                     pass/warn/block + quarantine
   orchestrator/                DataQualityAgent: wires everything together
   cli.py                      command-line entry point
 demo/
-  run_demo.py                 end-to-end walkthrough against a public dataset
-  sample_output.txt           a saved transcript of that run
-tests/                        48 tests, fully offline/deterministic
+  run_demo.py                 end-to-end walkthrough against a public dataset (SQLite)
+  run_demo_flatfile.py        the same walkthrough with zero databases (flat files + JSON)
+  export_flatfiles.py         exports the demo data to data/flatfiles/*.csv
+  sample_output.txt           a saved transcript of the SQLite run
+tests/                        63 tests, fully offline/deterministic
 ```
 
 ## Author
