@@ -39,14 +39,14 @@ import pandas as pd
 from dq_agent.adaptive.threshold_manager import ThresholdManager
 from dq_agent.connectors.registry import create_connector
 from dq_agent.gating.gate import DataGate
-from dq_agent.knowledge.rules_repo import RuleRepository
-from dq_agent.knowledge.store import KnowledgeRepository
+from dq_agent.knowledge.rules_repo_json import JsonRuleRepository
+from dq_agent.knowledge.store_json import JsonKnowledgeRepository
 from dq_agent.llm.client import AnthropicClient, MockLLMClient
 from dq_agent.llm.dq_reasoner import DQReasoner
 from dq_agent.models import Rule, RuleStatus, RuleType, Severity
 from dq_agent.orchestrator.agent import DataQualityAgent
 from dq_agent.streaming.in_memory_source import InMemoryStreamSource
-from dq_agent.ticketing.local_sink import LocalTicketSink
+from dq_agent.ticketing.json_sink import JsonTicketSink
 
 HERE = Path(__file__).resolve().parent
 DATA_DIR = HERE.parent / "data"
@@ -71,12 +71,16 @@ def _build_reasoner() -> DQReasoner:
 
 
 def build_agent() -> DataQualityAgent:
+    # Every piece of state is a plain file here -- source data (CSV),
+    # rules (JSON), business knowledge (JSON + a vector-store pickle),
+    # tickets (JSON), and quarantine (CSV, same as run_demo.py). No
+    # database anywhere in this variant.
     connector = create_connector(
         "flatfile_dir", source_name=SOURCE_NAME, directory=str(FLATFILE_DIR)
     )
-    knowledge_repo = KnowledgeRepository(str(STATE_DIR / "knowledge.db"))
-    rule_repo = RuleRepository(str(STATE_DIR / "rules.db"))
-    ticket_sink = LocalTicketSink(str(STATE_DIR / "tickets.db"))
+    knowledge_repo = JsonKnowledgeRepository(str(STATE_DIR / "knowledge.json"))
+    rule_repo = JsonRuleRepository(str(STATE_DIR / "rules.json"))
+    ticket_sink = JsonTicketSink(str(STATE_DIR / "tickets.json"))
     gate = DataGate(str(STATE_DIR / "quarantine"))
     reasoner = _build_reasoner()
     return DataQualityAgent(connector, knowledge_repo, rule_repo, reasoner, ticket_sink, gate, ThresholdManager())
@@ -279,8 +283,9 @@ def main() -> None:
     demonstrate_streaming(agent)
 
     _line("DONE")
-    print(f"State persisted under {STATE_DIR} (rules.db, knowledge.db, tickets.db, quarantine/) — inspect with any SQLite browser.")
-    print(f"Source data read from {FLATFILE_DIR} (plain CSVs, no database at all).")
+    print(f"State persisted under {STATE_DIR} (rules.json, knowledge.json + .vec.pkl, tickets.json, quarantine/*.csv) — every file is plain text/CSV, inspectable with any editor.")
+    print(f"Source data read from {FLATFILE_DIR} (plain CSVs).")
+    print("No database anywhere in this run -- source, rules, knowledge, and tickets are all flat files.")
 
 
 if __name__ == "__main__":
