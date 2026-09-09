@@ -16,7 +16,7 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from dq_agent.connectors.base import DataSourceConnector
-from dq_agent.connectors.flatfile_connector import FlatFileConnector
+from dq_agent.connectors.flatfile_connector import DirectoryFlatFileConnector, FlatFileConnector
 from dq_agent.connectors.sql_connector import SQLConnector
 
 ConnectorFactory = Callable[..., DataSourceConnector]
@@ -48,6 +48,13 @@ def _make_flatfile(source_name: str, **config: Any) -> DataSourceConnector:
     )
 
 
+def _make_flatfile_dir(source_name: str, **config: Any) -> DataSourceConnector:
+    return DirectoryFlatFileConnector(
+        source_name=source_name,
+        directory=config["directory"],
+    )
+
+
 def _make_kafka(source_name: str, **config: Any) -> DataSourceConnector:
     # imported lazily: kafka-python is an optional extra, and importing
     # it eagerly would make the whole registry require it.
@@ -66,6 +73,7 @@ register("snowflake", _make_sql("snowflake"))
 register("databricks", _make_sql("databricks"))
 register("sqlite", _make_sql("sqlite"))
 register("flatfile", _make_flatfile)
+register("flatfile_dir", _make_flatfile_dir)
 register("kafka", _make_kafka)
 
 
