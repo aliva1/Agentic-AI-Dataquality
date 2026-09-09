@@ -1,0 +1,28 @@
+{
+  "docs": {
+    "kdoc_ac42f082497a": {
+      "content": "Every InvoiceLine.TrackId must reference an existing Track.TrackId. This is the single most important consistency check on this table; a violation usually means the ETL loaded invoice lines before the track catalog finished loading.",
+      "created_at": 1788935487.3690758,
+      "doc_id": "kdoc_ac42f082497a",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "tags": [],
+      "title": "Referential integrity to Track"
+    },
+    "kdoc_b6c314dc6321": {
+      "content": "UnitPrice is in USD and should always be positive; the catalog has used 0.99 and 1.99 historically, so treat 0 or negative prices as a data error, not a valid tier.",
+      "created_at": 1788935487.371576,
+      "doc_id": "kdoc_b6c314dc6321",
+      "table_fq_name": "csv_export.Track",
+      "tags": [],
+      "title": "Pricing"
+    },
+    "kdoc_b900595cdb12": {
+      "content": "Every customer row must have a valid Email; Fax and Company are legacy fields and are expected to be null for most rows \u2014 do not flag them for completeness.",
+      "created_at": 1788935487.3669276,
+      "doc_id": "kdoc_b900595cdb12",
+      "table_fq_name": "csv_export.Customer",
+      "tags": [],
+      "title": "Email is required"
+    }
+  }
+}

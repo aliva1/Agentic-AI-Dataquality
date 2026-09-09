@@ -1,0 +1,1344 @@
+{
+  "rules": {
+    "rule_04a10a539650": {
+      "adaptive": true,
+      "column": "InvoiceId",
+      "created_at": 1788935487.5161273,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 769.4046318746302,
+        "min": -356.40463187463024
+      },
+      "rationale": "Observed range [1.0, 412.0]; flagging values outside it.",
+      "rule_id": "rule_04a10a539650",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.0,
+      "updated_at": 1788935487.5441508,
+      "version": 1
+    },
+    "rule_0c161d8af82a": {
+      "adaptive": true,
+      "column": "TrackId",
+      "created_at": 1788935487.4555254,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "TrackId looks like a candidate key (all distinct, no nulls).",
+      "rule_id": "rule_0c161d8af82a",
+      "rule_type": "uniqueness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.999,
+      "updated_at": 1788935487.4915168,
+      "version": 1
+    },
+    "rule_13944a4ec7b5": {
+      "adaptive": true,
+      "column": "GenreId",
+      "created_at": 1788935487.46201,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_13944a4ec7b5",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "approved",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.6735127,
+      "version": 6
+    },
+    "rule_1462645ce229": {
+      "adaptive": true,
+      "column": "MediaTypeId",
+      "created_at": 1788935487.4602928,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_1462645ce229",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "approved",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.671792,
+      "version": 6
+    },
+    "rule_1df75eacc29a": {
+      "adaptive": true,
+      "column": "TrackId",
+      "created_at": 1788935487.454661,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_1df75eacc29a",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "approved",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.6648982,
+      "version": 6
+    },
+    "rule_2506338bc0b8": {
+      "adaptive": true,
+      "column": "UnitPrice",
+      "created_at": 1788935487.5197423,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_2506338bc0b8",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.02,
+      "updated_at": 1788935487.5479126,
+      "version": 1
+    },
+    "rule_25997e7c53b4": {
+      "adaptive": true,
+      "column": "AlbumId",
+      "created_at": 1788935487.4586666,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_25997e7c53b4",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "approved",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.670069,
+      "version": 6
+    },
+    "rule_2740cacdef48": {
+      "adaptive": true,
+      "column": "CustomerId",
+      "created_at": 1788935487.407261,
+      "created_by": "dq_reasoner",
+      "params": {
+        "pattern_name": "integer_id"
+      },
+      "rationale": "CustomerId values match the 'integer_id' pattern in the sample.",
+      "rule_id": "rule_2740cacdef48",
+      "rule_type": "pattern",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.95,
+      "updated_at": 1788935487.4356096,
+      "version": 1
+    },
+    "rule_2a3617ef95b9": {
+      "adaptive": true,
+      "column": "TrackId",
+      "created_at": 1788935487.5172572,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_2a3617ef95b9",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.02,
+      "updated_at": 1788935487.545344,
+      "version": 1
+    },
+    "rule_2a4c70855344": {
+      "adaptive": true,
+      "column": "City",
+      "created_at": 1788935487.4111154,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_2a4c70855344",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.02,
+      "updated_at": 1788935487.440451,
+      "version": 1
+    },
+    "rule_2a5ddaa0de92": {
+      "adaptive": true,
+      "column": "InvoiceLineId",
+      "created_at": 1788935487.512987,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 4180.329868862509,
+        "min": -1939.3298688625086
+      },
+      "rationale": "Observed range [1.0, 2240.0]; flagging values outside it.",
+      "rule_id": "rule_2a5ddaa0de92",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.0,
+      "updated_at": 1788935487.5404193,
+      "version": 1
+    },
+    "rule_35a8c218dbfe": {
+      "adaptive": true,
+      "column": "Address",
+      "created_at": 1788935487.4100106,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_35a8c218dbfe",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.02,
+      "updated_at": 1788935487.4390764,
+      "version": 1
+    },
+    "rule_38446586ae41": {
+      "adaptive": true,
+      "column": "Company",
+      "created_at": 1788935487.409489,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 83.05%; proposing a max-null-rate threshold of 85.05% with headroom.",
+      "rule_id": "rule_38446586ae41",
+      "rule_type": "completeness",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.8505,
+      "updated_at": 1788935487.4383612,
+      "version": 1
+    },
+    "rule_3afde791ac2f": {
+      "adaptive": true,
+      "column": "InvoiceLineId",
+      "created_at": 1788935487.5140107,
+      "created_by": "dq_reasoner",
+      "params": {
+        "pattern_name": "integer_id"
+      },
+      "rationale": "InvoiceLineId values match the 'integer_id' pattern in the sample.",
+      "rule_id": "rule_3afde791ac2f",
+      "rule_type": "pattern",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.95,
+      "updated_at": 1788935487.5416582,
+      "version": 1
+    },
+    "rule_4648483845b4": {
+      "adaptive": true,
+      "column": "Fax",
+      "created_at": 1788935487.4139023,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 79.66%; proposing a max-null-rate threshold of 81.66% with headroom.",
+      "rule_id": "rule_4648483845b4",
+      "rule_type": "completeness",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.8166,
+      "updated_at": 1788935487.4440978,
+      "version": 1
+    },
+    "rule_4a1962eb94e2": {
+      "adaptive": true,
+      "column": "Name",
+      "created_at": 1788935487.4578948,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_4a1962eb94e2",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "approved",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.668351,
+      "version": 6
+    },
+    "rule_4a46898233cc": {
+      "adaptive": true,
+      "column": "LastName",
+      "created_at": 1788935487.4090254,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "LastName looks like a candidate key (all distinct, no nulls).",
+      "rule_id": "rule_4a46898233cc",
+      "rule_type": "uniqueness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.999,
+      "updated_at": 1788935487.4376342,
+      "version": 1
+    },
+    "rule_4bb977f8d01d": {
+      "adaptive": true,
+      "column": "TrackId",
+      "created_at": 1788935487.456359,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 6537.119971260201,
+        "min": -3033.1199712602006
+      },
+      "rationale": "Observed range [1.0, 3503.0]; flagging values outside it.",
+      "rule_id": "rule_4bb977f8d01d",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.4925706,
+      "version": 1
+    },
+    "rule_4d5bcd01609b": {
+      "adaptive": true,
+      "column": "Bytes",
+      "created_at": 1788935487.468032,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 1375723740.9942899,
+        "min": -316138853.9942899
+      },
+      "rationale": "Observed range [38747.0, 1059546140.0]; flagging values outside it.",
+      "rule_id": "rule_4d5bcd01609b",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.5059671,
+      "version": 1
+    },
+    "rule_58bc239ec2b5": {
+      "adaptive": true,
+      "column": "TrackId",
+      "created_at": 1788935487.4571276,
+      "created_by": "dq_reasoner",
+      "params": {
+        "pattern_name": "integer_id"
+      },
+      "rationale": "TrackId values match the 'integer_id' pattern in the sample.",
+      "rule_id": "rule_58bc239ec2b5",
+      "rule_type": "pattern",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 1.0,
+      "updated_at": 1788935487.6666362,
+      "version": 6
+    },
+    "rule_5c727f429c39": {
+      "adaptive": true,
+      "column": "UnitPrice",
+      "created_at": 1788935487.4700413,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 2.7070193332790096,
+        "min": 0.2729806667209902
+      },
+      "rationale": "Observed range [0.99, 1.99]; flagging values outside it.",
+      "rule_id": "rule_5c727f429c39",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.5080028,
+      "version": 1
+    },
+    "rule_5ef3c3492e6e": {
+      "adaptive": true,
+      "column": "State",
+      "created_at": 1788935487.411635,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 49.15%; proposing a max-null-rate threshold of 51.15% with headroom.",
+      "rule_id": "rule_5ef3c3492e6e",
+      "rule_type": "completeness",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.5115,
+      "updated_at": 1788935487.4411616,
+      "version": 1
+    },
+    "rule_60e3bbf57c4b": {
+      "adaptive": true,
+      "column": "AlbumId",
+      "created_at": 1788935487.4594717,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 592.326184253133,
+        "min": -244.326184253133
+      },
+      "rationale": "Observed range [1.0, 347.0]; flagging values outside it.",
+      "rule_id": "rule_60e3bbf57c4b",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.4968765,
+      "version": 1
+    },
+    "rule_6595b285e1a2": {
+      "adaptive": true,
+      "column": "Country",
+      "created_at": 1788935487.4122071,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_6595b285e1a2",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.02,
+      "updated_at": 1788935487.4419081,
+      "version": 1
+    },
+    "rule_675ae1ce4652": {
+      "adaptive": true,
+      "column": "InvoiceId",
+      "created_at": 1788935487.5150378,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_675ae1ce4652",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.02,
+      "updated_at": 1788935487.542942,
+      "version": 1
+    },
+    "rule_6a1d61500ed3": {
+      "adaptive": true,
+      "column": "Email",
+      "created_at": 1788935487.4159956,
+      "created_by": "dq_reasoner",
+      "params": {
+        "pattern_name": "email"
+      },
+      "rationale": "Email values match the 'email' pattern in the sample.",
+      "rule_id": "rule_6a1d61500ed3",
+      "rule_type": "pattern",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.95,
+      "updated_at": 1788935487.4461877,
+      "version": 1
+    },
+    "rule_72209749abdc": {
+      "adaptive": true,
+      "column": "CustomerId",
+      "created_at": 1788935487.4060276,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "CustomerId looks like a candidate key (all distinct, no nulls).",
+      "rule_id": "rule_72209749abdc",
+      "rule_type": "uniqueness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.999,
+      "updated_at": 1788935487.4342418,
+      "version": 1
+    },
+    "rule_74b6fe8f7f55": {
+      "adaptive": true,
+      "column": "CustomerId",
+      "created_at": 1788935487.4066439,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 110.526692111953,
+        "min": -50.526692111953
+      },
+      "rationale": "Observed range [1.0, 59.0]; flagging values outside it.",
+      "rule_id": "rule_74b6fe8f7f55",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.0,
+      "updated_at": 1788935487.434911,
+      "version": 1
+    },
+    "rule_76f7c630a938": {
+      "adaptive": true,
+      "column": "Address",
+      "created_at": 1788935487.4105487,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Address looks like a candidate key (all distinct, no nulls).",
+      "rule_id": "rule_76f7c630a938",
+      "rule_type": "uniqueness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.999,
+      "updated_at": 1788935487.4397564,
+      "version": 1
+    },
+    "rule_83b98d8696db": {
+      "adaptive": true,
+      "column": "Composer",
+      "created_at": 1788935487.4638705,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 27.89%; proposing a max-null-rate threshold of 29.89% with headroom.",
+      "rule_id": "rule_83b98d8696db",
+      "rule_type": "completeness",
+      "severity": "warn",
+      "status": "approved",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.392711,
+      "updated_at": 1788935487.675356,
+      "version": 5
+    },
+    "rule_840a08f64f37": {
+      "adaptive": true,
+      "column": "TrackId",
+      "created_at": 1788935487.5517585,
+      "created_by": "demo_script",
+      "params": {
+        "ref_column": "TrackId",
+        "ref_table": "Track"
+      },
+      "rationale": "Every invoice line must reference a real track (business knowledge doc).",
+      "rule_id": "rule_840a08f64f37",
+      "rule_type": "referential",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.0,
+      "updated_at": 1788935487.552984,
+      "version": 1
+    },
+    "rule_8a9a7f983edc": {
+      "adaptive": true,
+      "column": "Bytes",
+      "created_at": 1788935487.467122,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_8a9a7f983edc",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "approved",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.6787717,
+      "version": 6
+    },
+    "rule_9b831e8c0f0f": {
+      "adaptive": true,
+      "column": "TrackId",
+      "created_at": 1788935487.5184555,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 6481.393997476737,
+        "min": -2980.3939974767372
+      },
+      "rationale": "Observed range [1.0, 3500.0]; flagging values outside it.",
+      "rule_id": "rule_9b831e8c0f0f",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.0,
+      "updated_at": 1788935487.5466573,
+      "version": 1
+    },
+    "rule_9f8da2f6b078": {
+      "adaptive": true,
+      "column": "SupportRepId",
+      "created_at": 1788935487.4166996,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_9f8da2f6b078",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.02,
+      "updated_at": 1788935487.446849,
+      "version": 1
+    },
+    "rule_a40560c32c8b": {
+      "adaptive": true,
+      "column": "LastName",
+      "created_at": 1788935487.408509,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_a40560c32c8b",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.02,
+      "updated_at": 1788935487.4369795,
+      "version": 1
+    },
+    "rule_ae0cf2dd1c4c": {
+      "adaptive": true,
+      "column": "PostalCode",
+      "created_at": 1788935487.4127526,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 6.78%; proposing a max-null-rate threshold of 8.78% with headroom.",
+      "rule_id": "rule_ae0cf2dd1c4c",
+      "rule_type": "completeness",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.0878,
+      "updated_at": 1788935487.4426327,
+      "version": 1
+    },
+    "rule_af363675c61f": {
+      "adaptive": true,
+      "column": "Email",
+      "created_at": 1788935487.4145713,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_af363675c61f",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.024921,
+      "updated_at": 1788935487.5664098,
+      "version": 4
+    },
+    "rule_b0e2849a7020": {
+      "adaptive": true,
+      "column": "UnitPrice",
+      "created_at": 1788935487.5209854,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 2.641207687683374,
+        "min": 0.3387923123166263
+      },
+      "rationale": "Observed range [0.99, 1.99]; flagging values outside it.",
+      "rule_id": "rule_b0e2849a7020",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.0,
+      "updated_at": 1788935487.5492144,
+      "version": 1
+    },
+    "rule_b2427d023881": {
+      "adaptive": true,
+      "column": "InvoiceLineId",
+      "created_at": 1788935487.5119545,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "InvoiceLineId looks like a candidate key (all distinct, no nulls).",
+      "rule_id": "rule_b2427d023881",
+      "rule_type": "uniqueness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.999,
+      "updated_at": 1788935487.5391731,
+      "version": 1
+    },
+    "rule_b5d037813312": {
+      "adaptive": true,
+      "column": "Phone",
+      "created_at": 1788935487.4132948,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 1.69%; proposing a max-null-rate threshold of 3.69% with headroom.",
+      "rule_id": "rule_b5d037813312",
+      "rule_type": "completeness",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.0369,
+      "updated_at": 1788935487.4434075,
+      "version": 1
+    },
+    "rule_bb834a373703": {
+      "adaptive": true,
+      "column": "Milliseconds",
+      "created_at": 1788935487.4661982,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 6891969.30561987,
+        "min": -1603945.3056198705
+      },
+      "rationale": "Observed range [1071.0, 5286953.0]; flagging values outside it.",
+      "rule_id": "rule_bb834a373703",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.50398,
+      "version": 1
+    },
+    "rule_c4c96fed1fb3": {
+      "adaptive": true,
+      "column": "SupportRepId",
+      "created_at": 1788935487.4174452,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 7.455209516461947,
+        "min": 0.544790483538053
+      },
+      "rationale": "Observed range [3.0, 5.0]; flagging values outside it.",
+      "rule_id": "rule_c4c96fed1fb3",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.0,
+      "updated_at": 1788935487.4475267,
+      "version": 1
+    },
+    "rule_c63bfb3a1ee3": {
+      "adaptive": true,
+      "column": "MediaTypeId",
+      "created_at": 1788935487.4610827,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 6.741329115467483,
+        "min": -0.7413291154674835
+      },
+      "rationale": "Observed range [1.0, 5.0]; flagging values outside it.",
+      "rule_id": "rule_c63bfb3a1ee3",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.4988897,
+      "version": 1
+    },
+    "rule_d7a7aac82da6": {
+      "adaptive": true,
+      "column": "CustomerId",
+      "created_at": 1788935487.405435,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_d7a7aac82da6",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.02,
+      "updated_at": 1788935487.4335303,
+      "version": 1
+    },
+    "rule_ddb3f388c907": {
+      "adaptive": true,
+      "column": "Email",
+      "created_at": 1788935487.5677648,
+      "created_by": "system",
+      "params": {},
+      "rationale": "",
+      "rule_id": "rule_ddb3f388c907",
+      "rule_type": "completeness",
+      "severity": "warn",
+      "status": "approved",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.339545,
+      "updated_at": 1788935487.572014,
+      "version": 3
+    },
+    "rule_e1ff33487357": {
+      "adaptive": true,
+      "column": "Email",
+      "created_at": 1788935487.4152613,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Email looks like a candidate key (all distinct, no nulls).",
+      "rule_id": "rule_e1ff33487357",
+      "rule_type": "uniqueness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.999,
+      "updated_at": 1788935487.4455078,
+      "version": 1
+    },
+    "rule_e21efd4df66d": {
+      "adaptive": true,
+      "column": "FirstName",
+      "created_at": 1788935487.4078543,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_e21efd4df66d",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.Customer",
+      "threshold": 0.02,
+      "updated_at": 1788935487.4362934,
+      "version": 1
+    },
+    "rule_e4fdc5392638": {
+      "adaptive": true,
+      "column": "Quantity",
+      "created_at": 1788935487.5223174,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_e4fdc5392638",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.02,
+      "updated_at": 1788935487.5504432,
+      "version": 1
+    },
+    "rule_eb0b7bc4f382": {
+      "adaptive": true,
+      "column": "UnitPrice",
+      "created_at": 1788935487.46904,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_eb0b7bc4f382",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "approved",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.6806283,
+      "version": 6
+    },
+    "rule_f42ed8ae835e": {
+      "adaptive": true,
+      "column": "Milliseconds",
+      "created_at": 1788935487.4648106,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_f42ed8ae835e",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "approved",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.6770513,
+      "version": 6
+    },
+    "rule_fb11d54be4ae": {
+      "adaptive": true,
+      "column": "GenreId",
+      "created_at": 1788935487.4629376,
+      "created_by": "dq_reasoner",
+      "params": {
+        "max": 43.57061111134091,
+        "min": -17.57061111134091
+      },
+      "rationale": "Observed range [1.0, 25.0]; flagging values outside it.",
+      "rule_id": "rule_fb11d54be4ae",
+      "rule_type": "range",
+      "severity": "warn",
+      "status": "active",
+      "table_fq_name": "csv_export.Track",
+      "threshold": 0.0,
+      "updated_at": 1788935487.5009708,
+      "version": 1
+    },
+    "rule_fed3c6a574bf": {
+      "adaptive": true,
+      "column": "InvoiceLineId",
+      "created_at": 1788935487.5108385,
+      "created_by": "dq_reasoner",
+      "params": {},
+      "rationale": "Observed null rate 0.00%; proposing a max-null-rate threshold of 2.00% with headroom.",
+      "rule_id": "rule_fed3c6a574bf",
+      "rule_type": "completeness",
+      "severity": "critical",
+      "status": "active",
+      "table_fq_name": "csv_export.InvoiceLine",
+      "threshold": 0.02,
+      "updated_at": 1788935487.5378711,
+      "version": 1
+    }
+  },
+  "threshold_history": {
+    "rule_13944a4ec7b5": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6001227,
+        "new_threshold": 0.0,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6155102,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6343641,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6537383,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 8 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6735127,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 9 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      }
+    ],
+    "rule_1462645ce229": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.5987556,
+        "new_threshold": 0.0,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6140087,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6327736,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6521072,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 8 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.671792,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 9 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      }
+    ],
+    "rule_1df75eacc29a": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.5929778,
+        "new_threshold": 0.0,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6081746,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6260056,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6451912,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 8 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6648982,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 9 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      }
+    ],
+    "rule_25997e7c53b4": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.5973866,
+        "new_threshold": 0.0,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6125824,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.631212,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.650449,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 8 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.670069,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 9 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      }
+    ],
+    "rule_4a1962eb94e2": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.5959358,
+        "new_threshold": 0.0,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6111386,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6295245,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6488209,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 8 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.668351,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 9 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      }
+    ],
+    "rule_58bc239ec2b5": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.5945034,
+        "new_threshold": 1.0,
+        "old_threshold": 0.95,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=1.0000, std=0.0000); relative_change=5.3%",
+        "required_reapproval": false
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.609676,
+        "new_threshold": 1.0,
+        "old_threshold": 1.0,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=1.0000, std=0.0000); relative_change=5.3%",
+        "required_reapproval": false
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6278777,
+        "new_threshold": 1.0,
+        "old_threshold": 1.0,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=1.0000, std=0.0000); relative_change=5.3%",
+        "required_reapproval": false
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6470466,
+        "new_threshold": 1.0,
+        "old_threshold": 1.0,
+        "reason": "EWMA-based auto-tune from 8 observations (mean=1.0000, std=0.0000); relative_change=5.3%",
+        "required_reapproval": false
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6666362,
+        "new_threshold": 1.0,
+        "old_threshold": 1.0,
+        "reason": "EWMA-based auto-tune from 9 observations (mean=1.0000, std=0.0000); relative_change=5.3%",
+        "required_reapproval": false
+      }
+    ],
+    "rule_83b98d8696db": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6169481,
+        "new_threshold": 0.303045,
+        "old_threshold": 0.2989,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.2143, std=0.0444); relative_change=1.4%",
+        "required_reapproval": false
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.636034,
+        "new_threshold": 0.329606,
+        "old_threshold": 0.303045,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.2340, std=0.0478); relative_change=10.3%",
+        "required_reapproval": false
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6555068,
+        "new_threshold": 0.329606,
+        "old_threshold": 0.329606,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.2340, std=0.0478); relative_change=10.3%",
+        "required_reapproval": false
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.675356,
+        "new_threshold": 0.392711,
+        "old_threshold": 0.329606,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.1638, std=0.1145); relative_change=31.4%",
+        "required_reapproval": true
+      }
+    ],
+    "rule_8a9a7f983edc": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6029797,
+        "new_threshold": 0.0,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6199155,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6392884,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6590211,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 8 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6787717,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 9 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      }
+    ],
+    "rule_af363675c61f": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.563595,
+        "new_threshold": 0.023339,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.0202, std=0.0016); relative_change=16.7%",
+        "required_reapproval": false
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.5649858,
+        "new_threshold": 0.024244,
+        "old_threshold": 0.023339,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.0209, std=0.0017); relative_change=3.9%",
+        "required_reapproval": false
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.5664098,
+        "new_threshold": 0.024921,
+        "old_threshold": 0.024244,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.0215, std=0.0017); relative_change=2.8%",
+        "required_reapproval": false
+      }
+    ],
+    "rule_ddb3f388c907": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.5706203,
+        "new_threshold": 0.319377,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.3027, std=0.0083); relative_change=1496.9%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.572014,
+        "new_threshold": 0.339545,
+        "old_threshold": 0.319377,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.3109, std=0.0143); relative_change=6.3%",
+        "required_reapproval": false
+      }
+    ],
+    "rule_eb0b7bc4f382": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6043956,
+        "new_threshold": 0.0,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.621621,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.640994,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6607065,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 8 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6806283,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 9 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      }
+    ],
+    "rule_f42ed8ae835e": [
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.601585,
+        "new_threshold": 0.0,
+        "old_threshold": 0.02,
+        "reason": "EWMA-based auto-tune from 5 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.618406,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 6 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6376722,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 7 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6572237,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 8 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      },
+      {
+        "auto_adjusted": true,
+        "changed_at": 1788935487.6770513,
+        "new_threshold": 0.0,
+        "old_threshold": 0.0,
+        "reason": "EWMA-based auto-tune from 9 observations (mean=0.0000, std=0.0000); relative_change=100.0%",
+        "required_reapproval": true
+      }
+    ]
+  }
+}
