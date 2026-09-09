@@ -85,3 +85,83 @@ class FlatFileConnector(StreamingCapableConnector):
         df = self._load()
         for start in range(0, len(df), batch_size):
             yield df.iloc[start : start + batch_size].copy()
+
+
+class DirectoryFlatFileConnector(StreamingCapableConnector):
+    """A folder of flat files, one file per logical table.
+
+    Mirrors a real-world flat-file drop -- an SFTP export, an S3
+    prefix, a nightly batch of CSVs -- where a single "source" (e.g.
+    "nightly_export") actually contains several related tables. Each
+    file's stem becomes its logical table name, so a directory holding
+    `Customer.csv`, `Track.csv`, `InvoiceLine.csv` behaves exactly like
+    a 3-table source when handed to `DataQualityAgent`, using the same
+    `list_tables` / `get_metadata` / `fetch_batch` contract every other
+    connector implements -- swapping a database source for a directory
+    of flat files changes nothing upstream.
+    """
+
+    source_type = "flatfile_dir"
+
+    def __init__(self, source_name: str, directory: str):
+        super().__init__(source_name)
+        self.directory = Path(directory)
+        if not self.directory.is_dir():
+            raise ValueError(f"Not a directory: {directory}")
+        self._files: dict[str, Path] = {}
+        for f in sorted(self.directory.iterdir()):
+            if f.suffix.lower() in _READERS:
+                self._files[f.stem] = f
+        if not self._files:
+            raise ValueError(
+                f"No supported flat files found in {directory} "
+                f"(supported extensions: {sorted(_READERS)})"
+            )
+        self._cache: dict[str, pd.DataFrame] = {}
+
+    def _load(self, table: str) -> pd.DataFrame:
+        if table not in self._files:
+            raise ValueError(
+                f"Unknown table {table!r}; available: {sorted(self._files)}"
+            )
+        if table not in self._cache:
+            reader = _READERS[self._files[table].suffix.lower()]
+            self._cache[table] = reader(self._files[table])
+        return self._cache[table]
+
+    def list_tables(self) -> list[str]:
+        return sorted(self._files)
+
+    def get_metadata(self, table: str) -> TableMetadata:
+        df = self._load(table)
+        columns = [
+            ColumnMetadata(name=c, data_type=str(df[c].dtype), nullable=bool(df[c].isna().any()))
+            for c in df.columns
+        ]
+        return TableMetadata(
+            source_name=self.source_name,
+            schema=None,
+            table=table,
+            columns=columns,
+            row_count_estimate=len(df),
+            comment=f"flat file: {self._files[table]}",
+        )
+
+    def row_count(self, table: str) -> int:
+        return len(self._load(table))
+
+    def fetch_sample(self, table: str, limit: int = 1000) -> pd.DataFrame:
+        return self._load(table).head(limit).copy()
+
+    def fetch_batch(self, table: str, where: Optional[str] = None) -> pd.DataFrame:
+        df = self._load(table)
+        if where:
+            df = df.query(where)
+        return df.copy()
+
+    def stream_micro_batches(
+        self, table: str, batch_size: int = 500
+    ) -> Iterator[pd.DataFrame]:
+        df = self._load(table)
+        for start in range(0, len(df), batch_size):
+            yield df.iloc[start : start + batch_size].copy()
