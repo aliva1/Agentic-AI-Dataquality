@@ -66,3 +66,50 @@ def test_flatfile_connector(tmp_path):
     assert len(df) == 3
     batches = list(conn.stream_micro_batches("vendor_feed", batch_size=2))
     assert [len(b) for b in batches] == [2, 1]
+
+
+def test_directory_flatfile_connector(tmp_path):
+    import pandas as pd
+
+    (tmp_path / "Customer.csv").write_text("")
+    pd.DataFrame({"CustomerId": [1, 2, 3], "Email": ["a@x.com", "b@x.com", None]}).to_csv(
+        tmp_path / "Customer.csv", index=False
+    )
+    pd.DataFrame({"TrackId": [1, 2], "UnitPrice": [0.99, 1.99]}).to_csv(
+        tmp_path / "Track.csv", index=False
+    )
+
+    conn = create_connector("flatfile_dir", "csv_export", directory=str(tmp_path))
+    assert conn.list_tables() == ["Customer", "Track"]
+
+    meta = conn.get_metadata("Customer")
+    assert meta.fq_name == "csv_export.Customer"
+    assert meta.row_count_estimate == 3
+
+    df = conn.fetch_batch("Customer")
+    assert len(df) == 3
+    assert conn.row_count("Track") == 2
+
+    batches = list(conn.stream_micro_batches("Customer", batch_size=2))
+    assert [len(b) for b in batches] == [2, 1]
+
+    assert conn.get_lineage("Customer") == []
+
+
+def test_directory_flatfile_connector_unknown_table_raises(tmp_path):
+    import pandas as pd
+
+    pd.DataFrame({"a": [1]}).to_csv(tmp_path / "Only.csv", index=False)
+    conn = create_connector("flatfile_dir", "csv_export", directory=str(tmp_path))
+
+    import pytest
+
+    with pytest.raises(ValueError):
+        conn.fetch_batch("DoesNotExist")
+
+
+def test_directory_flatfile_connector_empty_dir_raises(tmp_path):
+    import pytest
+
+    with pytest.raises(ValueError):
+        create_connector("flatfile_dir", "csv_export", directory=str(tmp_path))
