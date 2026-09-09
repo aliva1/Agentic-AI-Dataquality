@@ -112,6 +112,49 @@ pytest                                  # 48 tests, fully offline/deterministic
 pytest --cov=dq_agent --cov-report=term-missing   # ~87% line coverage
 ```
 
+## Flat-file variant (no database anywhere)
+
+`demo/run_demo.py` uses SQLite for the source data and SQLite for all
+of the agent's own state (rules, knowledge, tickets). There's a second
+demo that proves the same orchestration works with *no database
+anywhere* -- source data and every piece of agent state as plain files:
+
+```bash
+python demo/export_flatfiles.py     # exports Customer/Track/InvoiceLine
+                                     # from data/chinook.db into
+                                     # data/flatfiles/*.csv (same rows,
+                                     # same data, just CSV instead of SQL)
+python demo/run_demo_flatfile.py    # runs the identical pipeline against them
+```
+
+What changes, and what doesn't:
+
+| | `run_demo.py` | `run_demo_flatfile.py` |
+|---|---|---|
+| Source data | `data/chinook.db` (SQLite) | `data/flatfiles/*.csv` |
+| Connector | `SQLConnector(dialect="sqlite")` | `DirectoryFlatFileConnector` |
+| Rule repository | `RuleRepository` → `rules.db` | `JsonRuleRepository` → `rules.json` |
+| Knowledge repository | `KnowledgeRepository` → `knowledge.db` | `JsonKnowledgeRepository` → `knowledge.json` |
+| Ticket sink | `LocalTicketSink` → `tickets.db` | `JsonTicketSink` → `tickets.json` |
+| Quarantine | CSV | CSV (unchanged either way) |
+| Orchestrator, rule engine, adaptive thresholds, gating, reasoner | identical | identical |
+
+`DirectoryFlatFileConnector` (`connectors/flatfile_connector.py`) treats
+a folder of CSVs the way `FlatFileConnector` treats one file: it's the
+"table" enumeration a real flat-file drop needs (an SFTP export, an S3
+prefix) -- each file's name becomes its logical table, so a 3-table
+source works the same as a 3-table database as far as the orchestrator
+is concerned.
+
+`JsonRuleRepository`, `JsonKnowledgeRepository`, and `JsonTicketSink`
+(`knowledge/rules_repo_json.py`, `knowledge/store_json.py`,
+`ticketing/json_sink.py`) are drop-in alternatives to their SQLite
+counterparts -- same public methods, same lifecycle, same audit trail
+-- backed by one plain, human-readable `.json` file each instead of a
+database table. Open `data/demo_state_flatfile/rules.json` in any text
+editor after running the demo and you can read every rule, every
+threshold change, every ticket, directly.
+
 ## Scope & design decisions
 
 This was built to prove the architecture works end to end, in an
